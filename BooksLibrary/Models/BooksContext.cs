@@ -9,6 +9,6 @@ namespace BooksLibrary.Models
         {
         }
 
-        public DbSet<IBooks> MyBooks { get; set; }
+        public DbSet<Books> MyBooks { get; set; }
     }
 }

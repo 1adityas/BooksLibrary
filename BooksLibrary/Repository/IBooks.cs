@@ -4,7 +4,7 @@ namespace BooksLibrary.Repository
 {
     public interface IBooks
     {
-        void InsertBook(Books book); // C
+        int InsertBook(Books book); // C
 
         IEnumerable<Books> GetBooks(); // R
 
