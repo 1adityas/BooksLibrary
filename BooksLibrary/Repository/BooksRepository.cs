@@ -1,5 +1,6 @@
 ﻿using BooksLibrary.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace BooksLibrary.Repository
 {
@@ -11,7 +12,7 @@ namespace BooksLibrary.Repository
         {
             this.dbContext = dbContext;
         }
-        public async Task<int> DeleteBook(long BookId)
+        public async Task<int> DeleteBook(Guid BookId)
         {
             var Book = await dbContext.MyBooks.FindAsync(BookId);
             if (Book == null) return 0;
@@ -21,17 +22,12 @@ namespace BooksLibrary.Repository
             return 1;
         }
 
-        public async task<Books>? GetBooks(int bookId)
-        {
-            var books = dbContext.MyBooks.FindAsync(bookId);
-            if (books == null) return null;
+        public Task<List<Books>>? GetBooks()
+        {   
+            var books = dbContext.MyBooks.ToListAsync();
+            if (books == null) return null; 
 
             return books;
-        }
-
-        public IEnumerable<Books> GetBooks()
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<int> InsertBook(Books addBook)

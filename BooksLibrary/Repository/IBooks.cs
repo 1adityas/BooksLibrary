@@ -6,7 +6,7 @@ namespace BooksLibrary.Repository
     {
         int InsertBook(Books book); // C
 
-        IEnumerable<Books> GetBooks(); // R
+        Task<List<Books>>? GetBooks(); // R
 
 
         void UpdateBook(Books book); //U

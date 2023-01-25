@@ -5,24 +5,42 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BooksLibrary.Controllers
 {
-    public class BooksController
+    [ApiController]
+    [Route("api/[controller]")] //here [controller] will return employee name
+
+    public class BooksController: Controller
     {
-        BooksContext dbContext;
-        BooksRepository _repository = new BooksRepository(BooksContext: BooksContext);
-        private BooksController() {
-            
+        private readonly BooksContext dbContext;
+        private BooksRepository _repository;
+        public BooksController(BooksContext dbContext) {
+            this.dbContext = dbContext;
+            this._repository = new BooksRepository(dbContext);
+
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetBooks()
+        {
+            var result = await _repository.GetBooks();
+            return Ok(result);
         }
 
         [HttpPost]
-        public async Task<int> DeleteBook(long BookId)
+        public async Task<IActionResult> InsertBook(Books addBook)
         {
-
-            var Book = await dbContext.MyBooks.FindAsync(BookId);
-            if (Book == null) return 0;
-
-            dbContext.Remove(Book);
-            dbContext.SaveChangesAsync();
-            return 1;
+            var result = await _repository.InsertBook(addBook);
+            return Ok(result);
         }
+
+        [Route("{id:guid}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteBook([FromRoute] Guid bookId)
+        {
+            var result = await _repository.DeleteBook(bookId);
+            return Ok(result);
+        }
+
     }
 }
