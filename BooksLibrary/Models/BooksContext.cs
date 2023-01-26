@@ -7,6 +7,7 @@ namespace BooksLibrary.Models
     {
         public BooksContext(DbContextOptions options) : base(options)
         {
+
         }
 
         public DbSet<Books> MyBooks { get; set; }

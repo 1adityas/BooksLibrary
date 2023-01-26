@@ -18,7 +18,7 @@ namespace BooksLibrary.Repository
             if (Book == null) return 0;
 
             dbContext.Remove(Book);
-            dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
             return 1;
         }
 

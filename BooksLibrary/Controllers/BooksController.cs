@@ -33,14 +33,13 @@ namespace BooksLibrary.Controllers
             var result = await _repository.InsertBook(addBook);
             return Ok(result);
         }
-
-        [Route("{id:guid}")]
         [HttpDelete]
+        [Route("{bookId:guid}")]
         public async Task<IActionResult> DeleteBook([FromRoute] Guid bookId)
         {
             var result = await _repository.DeleteBook(bookId);
             return Ok(result);
         }
-
+            
     }
 }
